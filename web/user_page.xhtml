@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+                 
+    <h:form>
+        
+        <p:fieldset legend="Usuários">
+            <p:panelGrid columns="2" rendered="#{userBean.busca == false}">
+                
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <h:inputText value="#{userBean.entidade.nome}" required="true" ></h:inputText>
+                
+                <h:outputLabel value="Sobre Nome"></h:outputLabel>
+                <h:inputText value="#{userBean.entidade.sobreNome}" required="true" ></h:inputText>
+                
+                <h:outputLabel value="Cargo"></h:outputLabel>
+                <p:selectOneMenu id="cargo" value="#{userBean.entidade.cargo}" style="width:180px">
+                    
+                    <f:selectItem itemLabel="Selecione o cargo" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{userBean.listarAll()}" />
+                </p:selectOneMenu>
+                
+                
+                <h:outputLabel value="Login"></h:outputLabel>
+                <h:inputText value="#{userBean.entidade.login}" required="true" ></h:inputText>
+                
+                <h:outputLabel for="pwd1" value="Senha: *" />
+                <p:password id="pwd1" value="#{userBean.entidade.password}" match="pwd2" label="Senha" feedback="true" />
+
+                <h:outputLabel for="pwd2" value="Senha: *" />
+                <p:password id="pwd2" value="#{userBean.entidade.password}" label="Senha" />
+              
+                
+            </p:panelGrid>
+            <br></br>
+            <p:dataTable value="#{userBean.entidades}" var="usuario" rendered="#{userBean.busca == true}" >
+                 <p:column>
+                    <p:commandButton value="Editar" action="#{userBean.editar(agendamento)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{userBean.deletar(agendamento)}" update="@form"></p:commandButton>
+                </p:column>
+                
+                <p:column headerText="Nome" sortBy="#{usuario.nome}">
+                    <h:outputText value="#{usuario.nome}"></h:outputText>
+                </p:column>
+                
+                <p:column headerText="Sobre Nome" sortBy="#{usuario.sobreNome}">
+                    <h:outputText value="#{usuario.sobreNome}"></h:outputText>
+                </p:column>
+                
+                <p:column headerText="Cargo" sortBy="#{usuario.cargo}">
+                    <h:outputText value="#{usuario.cargo}"></h:outputText>
+                </p:column>
+               
+                
+            </p:dataTable>
+            <br/>
+            <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" action="#{userBean.novo()}" disabled="#{userBean.edita}" update="@form"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{userBean.salvar()}" disabled="#{userBean.busca}" update="@form"></p:commandButton>
+                        <p:commandButton value="Listar" action="#{userBean.buscar()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>
