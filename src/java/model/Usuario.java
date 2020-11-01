@@ -20,7 +20,7 @@ public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    public Integer id;
     private String nome;
     private String sobreNome;
     private String cargo;

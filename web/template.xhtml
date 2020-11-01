@@ -27,16 +27,20 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
-
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    
+                    <h:outputText value="Sessão iniciada por: #{LoginMB.userLogado.nome}" />
+                    
+                   
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                     
                             <li>
-                                <a class="nav-link active" href="index.jsf"><i ></i>AGENDAMENTOS</a>
+                                <a class="nav-link active" href="agendamento_page.jsf"><i ></i>AGENDAMENTOS</a>
                             </li>
                             <li>
                                 <a class="nav-link active" href="user_page.jsf"><i ></i>USUÁRIOS</a>
@@ -45,8 +49,13 @@
                                 <a class="nav-link active" href="cargo_page.jsf"><i ></i>CARGOS</a>
                             </li>
                             <li>
+                                <a class="nav-link active" href="servico_page.jsf"><i ></i>SERVIÇOS</a>
+                            </li>
+                            <li>
                                 <a class="nav-link active" href="https://www.linkedin.com/in/wellington-ferreira-248470b1"><i ></i>CONTATO</a>
                             </li>
+                            
+                            
                         </ul>
                     </div>
 

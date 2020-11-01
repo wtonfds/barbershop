@@ -53,7 +53,7 @@ public class AgendamentoDAO implements CrudDao<Agendamento>{
     @Override
     public List<Agendamento> buscar() {
         EntityManager em = getEntityManager();
-        Query q = em.createQuery("SELECT a FROM Agendamento a ORDER BY A.nome DESC");
+        Query q = em.createQuery("SELECT a FROM Agendamento a ORDER BY a.nome DESC");
         return (List<Agendamento>) q.getResultList();
     }
 

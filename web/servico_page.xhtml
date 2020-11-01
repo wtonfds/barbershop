@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:form>
+        <p:fieldset legend="Serviço">
+            <p:panelGrid columns="2" rendered="#{servicoBean.busca == false}">
+                
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <h:inputText value="#{servicoBean.entidade.nome}" required="true" ></h:inputText>
+                
+                <h:outputLabel value="Preço"></h:outputLabel>
+                <p:inputMask value="#{servicoBean.entidade.preco}" mask="99,99"/>
+                
+            </p:panelGrid>
+            <br></br>
+            <p:dataTable value="#{servicoBean.entidades}" var="servico" rendered="#{servicoBean.busca == true}" >
+                 <p:column>
+                    <p:commandButton value="Editar" action="#{servicoBean.editar(servico)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{servicoBean.deletar(servico)}" update="@form"></p:commandButton>
+                </p:column>
+                
+                <p:column headerText="Nome" sortBy="#{servico.nome}">
+                    <h:outputText value="#{servico.nome}"></h:outputText>
+                </p:column>
+                
+                <p:column headerText="Preço" sortBy="#{servico.preco}">
+                    <h:outputText value="#{servico.preco}"></h:outputText>
+                </p:column>
+                
+            </p:dataTable>
+            <br/>
+            <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" action="#{servicoBean.novo()}" disabled="#{servicoBean.edita}" update="@form"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{servicoBean.salvar()}" disabled="#{servicoBean.busca}" update="@form"></p:commandButton>
+                        <p:commandButton value="Listar" action="#{servicoBean.buscar()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+        </p:fieldset>
+    </h:form>
+    
+</ui:decorate>

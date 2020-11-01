@@ -43,7 +43,7 @@ public class CargoDAO implements CrudDao<Cargo>{
         if(cargo != null){
             EntityManager em = getEntityManager();
             em.getTransaction().begin();
-            Query q = em.createNativeQuery("DELETE cargo FROM Cargo WHERE id = " + cargo.getId());
+            Query q = em.createQuery("DELETE cargo FROM Cargo WHERE id = " + cargo.getId());
             q.executeUpdate();
             em.getTransaction().commit();
         }else{

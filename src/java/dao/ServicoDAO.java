@@ -6,74 +6,60 @@
 package dao;
 
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
-import model.Usuario;
-
+import model.Servico;
 
 /**
  *
  * @author wtonf
  */
-public class UserDAO implements CrudDao<Usuario>{
+public class ServicoDAO implements CrudDao<Servico>{
     @PersistenceContext
-    
-    
+
     @Override
-    public void salvar(Usuario user) {
-        if(user.getId() == null){
+    public void salvar(Servico servico) {
+        if(servico.getId() == null){
             EntityManager em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(user);
+            em.persist(servico);
             em.getTransaction().commit();
         }else{
             EntityManager em = getEntityManager();
             em.getTransaction().begin();
-            em.merge(user);
+            em.merge(servico);
             em.getTransaction().commit();
         }
+        
     }
 
     @Override
-    public void deletar(Usuario user) {
-        if(user != null){
+    public void deletar(Servico servico) {
+        if(servico != null){
             EntityManager em = getEntityManager();
             em.getTransaction().begin();
-            Query q = em.createQuery("DELETE usuario from Usuario WHERE id = " + user.getId());
+            Query q = em.createQuery("DELETE servico FROM Servico WHERE id = " + servico.getId());
             q.executeUpdate();
             em.getTransaction().commit();
         }else{
-            JOptionPane.showConfirmDialog(null, "Erro ao deletar Usuário");
+            JOptionPane.showConfirmDialog(null, "Erro ao deletar Serviço");
         }
     }
 
     @Override
-    public List<Usuario> buscar() {
+    public List<Servico> buscar() {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
-        Query q = em.createQuery("SELECT u FROM Usuario u ORDER BY u.nome DESC");
-        return (List<Usuario>) q.getResultList();
-    }
-    
-    public Usuario getUser(String login, String password) {
-        try {
-            EntityManager em = getEntityManager();
-            Usuario user = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login and u.password = :password")
-                    .setParameter("login", login).setParameter("password", password).getSingleResult();
-            return user;
-        } catch (Exception e) {
-            return null;
-        }
+        Query q = em.createQuery("SELECT s FROM Servico s ORDER BY s.nome DESC");
+        return (List<Servico>) q.getResultList();
     }
     
     private EntityManager getEntityManager() {
         EntityManagerFactory  em = Persistence.createEntityManagerFactory("barberShop");
         return em.createEntityManager();
     }
-
 }
